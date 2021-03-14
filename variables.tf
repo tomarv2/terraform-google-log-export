@@ -48,13 +48,13 @@ variable "unique_writer_identity" {
   default     = false
 }
 
-variable "bigquery_options" {
-  default     = null
-  description = "(Optional) Options that affect sinks exporting data to BigQuery. use_partitioned_tables - (Required) Whether to use BigQuery's partition tables."
-  type = object({
-    use_partitioned_tables = bool
-  })
-}
+//variable "bigquery_options" {
+//  default     = null
+//  description = "(Optional) Options that affect sinks exporting data to BigQuery. use_partitioned_tables - (Required) Whether to use BigQuery's partition tables."
+//  type = object({
+//    use_partitioned_tables = bool
+//  })
+//}
 
 variable "parent_resource_type" {
   description = "The GCP resource in which you create the log sink. The value must not be computed, and must be one of the following: 'project', 'folder', 'billing_account', or 'organization'."
@@ -67,8 +67,6 @@ variable "parent_resource_id" {
   default     = null
 }
 
-
-#--- pubsub
 variable "message_storage_policy" {
   type        = map(any)
   description = "A map of storage policies. Default - inherit from organization's Resource Location Restriction policy."
@@ -89,4 +87,22 @@ variable "create_topic" {
   type        = bool
   description = "Specify true if you want to create a topic"
   default     = true
+}
+
+variable "exclusions" {
+  type = set(object({
+    name        = string
+    description = string
+    filter      = string
+  }))
+}
+
+variable "inclusion_filter" {}
+
+variable "bigquery_options" {
+  default     = null
+  description = "(Optional) Options that affect sinks exporting data to BigQuery. use_partitioned_tables - (Required) Whether to use BigQuery's partition tables."
+  type = object({
+    use_partitioned_tables = bool
+  })
 }

@@ -11,7 +11,22 @@ resource "google_logging_project_sink" "default" {
   # - Cloud Storage
   # - BigQuery
   #----------------------------------------------
-  destination = "pubsub.googleapis.com/projects/${var.gcp_project}/topics/${local.topic_name}" #local.destination
+  destination = local.destination
+  #----------------------------------------------
+  # INCLUSION
+  #----------------------------------------------
+  filter = var.inclusion_filter
+  #----------------------------------------------
+  # EXCLUSION
+  #----------------------------------------------
+  dynamic "exclusions" {
+    for_each = var.exclusions
+    content {
+      name        = exclusions.value["name"]
+      description = exclusions.value["description"]
+      filter      = exclusions.value["filter"]
+    }
+  }
   #----------------------------------------------
   # BIG QUERY
   #----------------------------------------------
@@ -20,22 +35,5 @@ resource "google_logging_project_sink" "default" {
     content {
       use_partitioned_tables = bigquery_options.value.use_partitioned_tables
     }
-  }
-  #----------------------------------------------
-  # Log all WARN or higher severity messages relating to instances
-  filter = "resource.type = gce_instance AND severity >= WARNING"
-  #----------------------------------------------
-  # EXCLUSION
-  #----------------------------------------------
-  exclusions {
-    name        = "nsexcllusion1"
-    description = "Exclude logs from namespace-1 in k8s"
-    filter      = "resource.type = k8s_container resource.labels.namespace_name=\"namespace-1\" "
-  }
-
-  exclusions {
-    name        = "nsexcllusion2"
-    description = "Exclude logs from namespace-2 in k8s"
-    filter      = "resource.type = k8s_container resource.labels.namespace_name=\"namespace-2\" "
   }
 }

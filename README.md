@@ -81,43 +81,74 @@ tf -cloud gcloud destroy -var-file <path to .tfvars file>
 ##### Project Sink - Storage
 ```
 module "project_sink" {
-  source = "../"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
-  bucket_name = module.storage_bucket.storage_bucket_name
+  #bucket_name = module.storage_bucket.storage_bucket_name
   gcp_project = "demo-1000"
+  #----------------------------------------------
+  # INCLUSION: Log all WARN or higher severity messages relating to instances
+  #----------------------------------------------
+  inclusion_filter = "logName = \"projects/demo-1000/logs/cloudaudit.googleapis.com%2Factivity\" AND protoPayload.methodName = (\"beta.compute.instances.insert\") AND resource.type = gce_instance AND severity >= ERROR"
+ #----------------------------------------------
+  # EXCLUSION
+  #----------------------------------------------
+  exclusions = [{
+  name ="sec-eng-ex1"
+  description ="Exclude logs 1"
+  filter = "resource.type = gce_instance AND severity >= WARNING"
+},
+{
+  name ="sec-eng-ex2"
+  description ="Exclude logs 2"
+  filter = "resource.type = gce_instance AND severity >= INFO"
+}]
   #----------------------------------------------
   # Note: Do not change teamid and prjid once set.
   teamid = var.teamid
   prjid  = var.prjid
-
 }
 
 module "storage_bucket" {
-  source = "git::git@github.com:tomarv2/terraform-google-storage-bucket.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
-  deploy_bucket = false
+  deploy_bucket = true
 
-  bucket_name = "test-prj-sink-001"
+  bucket_name = "test-prj-sink-0011"
   gcp_project = "demo-1000"
-  #-----------------------------------------------
-  # Note: Do not change teamid and prjid once set.
   teamid = var.teamid
   prjid  = var.prjid
+ }
 }
-
 ```
 
 ##### Project Sink with PubSub (pull method)
 ```
 module "project_sink" {
-  source = "../"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
+  #bucket_name = module.storage_bucket.storage_bucket_name
   gcp_project = "demo-1000"
+  #----------------------------------------------
+  # INCLUSION: Log all WARN or higher severity messages relating to instances
+  #----------------------------------------------
+  inclusion_filter = "logName = \"projects/demo-1000/logs/cloudaudit.googleapis.com%2Factivity\" AND protoPayload.methodName = (\"beta.compute.instances.insert\") AND resource.type = gce_instance AND severity >= ERROR"
+ #----------------------------------------------
+  # EXCLUSION
+  #----------------------------------------------
+  exclusions = [{
+  name ="sec-eng-ex1"
+  description ="Exclude logs 1"
+  filter = "resource.type = gce_instance AND severity >= WARNING"
+},
+{
+  name ="sec-eng-ex2"
+  description ="Exclude logs 2"
+  filter = "resource.type = gce_instance AND severity >= INFO"
+}]
   #----------------------------------------------
   # Note: Do not change teamid and prjid once set.
   teamid = var.teamid
   prjid  = var.prjid
-
 }
 
 module "pubsub" {
@@ -162,8 +193,10 @@ Please refer to examples directory [link](examples) for references.
 | deploy\_bucket | feature flag, true or false | `bool` | `true` | no |
 | deploy\_org\_sink | feature flag, true or false | `bool` | `true` | no |
 | deploy\_project\_sink | feature flag, true or false | `bool` | `true` | no |
+| exclusions | n/a | <pre>set(object({<br>    name        = string<br>    description = string<br>    filter      = string<br>  }))</pre> | n/a | yes |
 | gcp\_project | Name of the GCP project | `any` | n/a | yes |
 | gcp\_region | n/a | `string` | `"us-central1"` | no |
+| inclusion\_filter | n/a | `any` | n/a | yes |
 | message\_storage\_policy | A map of storage policies. Default - inherit from organization's Resource Location Restriction policy. | `map(any)` | `{}` | no |
 | parent\_resource\_id | The ID of the GCP resource in which you create the log sink. If var.parent\_resource\_type is set to 'project', then this is the Project ID (and etc). | `any` | `null` | no |
 | parent\_resource\_type | The GCP resource in which you create the log sink. The value must not be computed, and must be one of the following: 'project', 'folder', 'billing\_account', or 'organization'. | `string` | `"project"` | no |
