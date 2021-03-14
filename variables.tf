@@ -90,6 +90,7 @@ variable "create_topic" {
 }
 
 variable "exclusions" {
+  default = []
   type = set(object({
     name        = string
     description = string
