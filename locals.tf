@@ -4,7 +4,7 @@ locals {
   is_org_level     = var.parent_resource_type == "organization"
   is_billing_level = var.parent_resource_type == "billing_account"
 
-  destination = var.deploy_bucket != true ? "storage.googleapis.com/${var.bucket_name}" : "pubsub.googleapis.com/projects/${var.gcp_project}/topics/${local.topic_name}"
+  destination = var.deploy_bucket == true ? "storage.googleapis.com/${var.bucket_name}" : "pubsub.googleapis.com/projects/${var.gcp_project}/topics/${local.topic_name}"
 
   # Bigquery sink options
   bigquery_options = var.bigquery_options == null ? [] : var.unique_writer_identity == true ? list(var.bigquery_options) : []

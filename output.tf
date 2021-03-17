@@ -13,7 +13,7 @@ output "project_sink_unique_writer_identity" {
   value       = join("", google_logging_project_sink.default.*.unique_writer_identity)
 }
 
-output "project_sink_writer_identfity" {
+output "project_sink_writer_identity" {
   description = "Project log sink write identity"
   value       = join("", google_logging_project_sink.default.*.writer_identity)
 }
