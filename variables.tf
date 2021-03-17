@@ -99,3 +99,8 @@ variable "bigquery_options" {
     use_partitioned_tables = bool
   })
 }
+
+variable "existing_topic_name" {
+  description = "Existing PubSub name"
+  default = null
+}

@@ -78,9 +78,9 @@ tf -cloud gcloud destroy -var-file <path to .tfvars file>
 >
 > For more information refer to [Terraform documentation](https://www.terraform.io/docs/language/values/variables.html)
 
-##### Project Sink - PubSub (pull method)
+##### Project Log Export to new PubSub topic (pull method)
 ```
-module "project_sink" {
+module "project_log_export" {
   source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
 
   gcp_project = "demo-1000"
@@ -124,12 +124,43 @@ module "pubsub" {
 }
 ```
 
-##### Project Sink - Storage
+##### Project Log Export to exiting PubSub topic (pull method)
 ```
-module "project_sink" {
+module "project_log_export" {
   source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
 
-  deploy_bucket = true
+  existing_topic_name = "projects/demo-1000/topics/delme-vt"
+
+  gcp_project = "demo-1000"
+  #----------------------------------------------
+  # INCLUSION: Log all WARN or higher severity messages relating to instances
+  #----------------------------------------------
+  inclusion_filter = "logName = \"projects/demo-1000/logs/cloudaudit.googleapis.com%2Factivity\" AND protoPayload.methodName = (\"beta.compute.instances.insert\") AND resource.type = gce_instance AND severity >= ERROR"
+ #----------------------------------------------
+  # EXCLUSION
+  #----------------------------------------------
+  exclusions = [{
+  name ="sec-eng-ex1"
+  description ="Exclude logs 1"
+  filter = "resource.type = gce_instance AND severity >= WARNING"
+},
+{
+  name ="sec-eng-ex2"
+  description ="Exclude logs 2"
+  filter = "resource.type = gce_instance AND severity >= INFO"
+}]
+  #----------------------------------------------
+  # Note: Do not change teamid and prjid once set.
+  teamid = var.teamid
+  prjid  = var.prjid
+}
+```
+
+##### Project Log Export to new Storage bucket
+```
+module "project_log_export" {
+  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+
   bucket_name = module.storage_bucket.storage_bucket_name
 
   gcp_project = "demo-1000"
@@ -159,13 +190,44 @@ module "project_sink" {
 module "storage_bucket" {
   source = "git::git@tomarv2:tomarv2/terraform-google-storage-bucket.git"
 
-  bucket_name = "log-router-demo-bucket"
+  bucket_name = "test-prj-sink-0011"
   gcp_project = "demo-1000"
   teamid = var.teamid
   prjid  = var.prjid
 }
 ```
 
+##### Project Log Export to existing Storage bucket
+```
+module "project_log_export" {
+  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+
+  bucket_name = "<existing bucket name>"
+
+  gcp_project = "demo-1000"
+  #----------------------------------------------
+  # INCLUSION: Log all WARN or higher severity messages relating to instances
+  #----------------------------------------------
+  inclusion_filter = "logName = \"projects/demo-1000/logs/cloudaudit.googleapis.com%2Factivity\" AND protoPayload.methodName = (\"beta.compute.instances.insert\") AND resource.type = gce_instance AND severity >= ERROR"
+ #----------------------------------------------
+  # EXCLUSION
+  #----------------------------------------------
+  exclusions = [{
+  name ="sec-eng-ex1"
+  description ="Exclude logs 1"
+  filter = "resource.type = gce_instance AND severity >= WARNING"
+},
+{
+  name ="sec-eng-ex2"
+  description ="Exclude logs 2"
+  filter = "resource.type = gce_instance AND severity >= INFO"
+}]
+  #----------------------------------------------
+  # Note: Do not change teamid and prjid once set.
+  teamid = var.teamid
+  prjid  = var.prjid
+}
+```
 Please refer to examples directory [link](examples) for references.
 
 ## Requirements

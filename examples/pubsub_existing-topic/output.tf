@@ -22,27 +22,3 @@ output "project_sink_project" {
   description = "Project log sink project"
   value       = module.project_sink.project_sink_project
 }
-
-output "project_sink_topic_name" {
-  description = "Project log topic name"
-  value       = module.pubsub.pubsub_topic_name
-}
-
-output "pubsub_subscription_name" {
-  description = "PubSub subscription name"
-  value       = module.pubsub.pubsub_subscription_name
-}
-
-output "pubsub_subscription_topic" {
-  description = "PubSub subscription topic"
-  value       = module.pubsub.pubsub_subscription_topic
-}
-
-output "pubsub_message_retention" {
-  description = "PubSub subscription retention"
-  value       = module.pubsub.pubsub_message_retention
-}
-output "pubsub_subscription_id" {
-  description = "PubSub subscription id"
-  value       = module.pubsub.pubsub_subscription_id
-}
