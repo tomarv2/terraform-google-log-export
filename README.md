@@ -81,7 +81,7 @@ tf -cloud gcloud destroy -var-file <path to .tfvars file>
 ##### Project Log Export to new PubSub topic (pull method)
 ```
 module "project_log_export" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   gcp_project = "demo-1000"
   #----------------------------------------------
@@ -108,7 +108,7 @@ module "project_log_export" {
 }
 
 module "pubsub" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-pubsub.git"
+  source = "git::git@github.com:tomarv2/terraform-google-pubsub.git"
 
   gcp_project = "demo-1000"
   pull_subscriptions = [
@@ -127,7 +127,7 @@ module "pubsub" {
 ##### Project Log Export to exiting PubSub topic (pull method)
 ```
 module "project_log_export" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   existing_topic_name = "projects/demo-1000/topics/delme-vt"
 
@@ -159,7 +159,7 @@ module "project_log_export" {
 ##### Project Log Export to new Storage bucket
 ```
 module "project_log_export" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   bucket_name = module.storage_bucket.storage_bucket_name
 
@@ -188,7 +188,7 @@ module "project_log_export" {
 }
 
 module "storage_bucket" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-storage-bucket.git"
+  source = "git::git@github.com:tomarv2/terraform-google-storage-bucket.git"
 
   bucket_name = "test-prj-sink-0011"
   gcp_project = "demo-1000"
@@ -200,7 +200,7 @@ module "storage_bucket" {
 ##### Project Log Export to existing Storage bucket
 ```
 module "project_log_export" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   bucket_name = "<existing bucket name>"
 
