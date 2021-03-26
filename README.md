@@ -288,7 +288,7 @@ Please refer to examples directory [link](examples) for references.
 
 ## Permissions
 
-Service account with the following roles is required:
+**Service account with the following roles is required:**
 
 - On the logsink's project, folder, or organization (to create the logsink) enable:
 
@@ -322,7 +322,7 @@ To use a BigQuery dataset as the destination, on the destination project (to cre
 
 ## Project APIs
 
-:point_right: Following APIs must be enabled on the project:
+**Following APIs must be enabled on the project:**
 
 :point_right: Cloud Resource Manager API - `cloudresourcemanager.googleapis.com`
 
