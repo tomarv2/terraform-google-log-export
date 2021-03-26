@@ -15,7 +15,19 @@
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
 
-# Terraform module to create Google Cloud Project/Org sink
+# Terraform module to create Google Cloud log export
+
+**There are four levels of log exports for Google cloud:**
+
+:point_right: project level
+
+:point_right: folder level
+
+:point_right: organization level
+
+:point_right: billing_account level
+
+Plan correctly as there is cost associated with log export.
 
 # Versions
 
@@ -48,21 +60,21 @@ export TF_GCLOUD_BUCKET=<remote state bucket name>
 export TF_GCLOUD_CREDENTIALS=<gcp credentials.json>
 ```  
 
-- Updated `examples` directory to required values 
+- Updated `examples` directory to required values. 
 
 - Run and verify the output before deploying:
 ```
-tf -cloud gcloud plan -var-file <path to .tfvars file>
+tf -cloud gcloud plan -var='teamid=foo' -var='prjid=bar'
 ```
 
 - Run below to deploy:
 ```
-tf -cloud gcloud apply -var-file <path to .tfvars file>
+tf -cloud gcloud apply -var='teamid=foo' -var='prjid=bar'
 ```
 
 - Run below to destroy:
 ```
-tf -cloud gcloud destroy -var-file <path to .tfvars file>
+tf -cloud gcloud destroy -var='teamid=foo' -var='prjid=bar'
 ```
 
 > ❗️ **Important** - Two variables are required for using `tf` package:
@@ -78,7 +90,7 @@ tf -cloud gcloud destroy -var-file <path to .tfvars file>
 >
 > For more information refer to [Terraform documentation](https://www.terraform.io/docs/language/values/variables.html)
 
-##### Project Log Export to new PubSub topic (pull method)
+#### Project Log Export to new PubSub topic (pull method)
 ```
 module "project_log_export" {
   source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
@@ -124,13 +136,12 @@ module "pubsub" {
 }
 ```
 
-##### Project Log Export to exiting PubSub topic (pull method)
+#### Project Log Export to exiting PubSub topic (pull method)
 ```
 module "project_log_export" {
   source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   existing_topic_name = "projects/demo-1000/topics/delme-vt"
-
   gcp_project = "demo-1000"
   #----------------------------------------------
   # INCLUSION: Log all WARN or higher severity messages relating to instances
@@ -156,13 +167,12 @@ module "project_log_export" {
 }
 ```
 
-##### Project Log Export to new Storage bucket
+#### Project Log Export to new Storage bucket
 ```
 module "project_log_export" {
   source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   bucket_name = module.storage_bucket.storage_bucket_name
-
   gcp_project = "demo-1000"
   #----------------------------------------------
   # INCLUSION: Log all WARN or higher severity messages relating to instances
@@ -197,13 +207,12 @@ module "storage_bucket" {
 }
 ```
 
-##### Project Log Export to existing Storage bucket
+#### Project Log Export to existing Storage bucket
 ```
 module "project_log_export" {
   source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   bucket_name = "<existing bucket name>"
-
   gcp_project = "demo-1000"
   #----------------------------------------------
   # INCLUSION: Log all WARN or higher severity messages relating to instances
