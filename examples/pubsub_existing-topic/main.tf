@@ -1,5 +1,5 @@
 module "project_log_export" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   existing_topic_name = "projects/demo-1000/topics/delme-vt"
   gcp_project = "demo-1000"

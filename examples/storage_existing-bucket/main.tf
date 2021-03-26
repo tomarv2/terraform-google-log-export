@@ -1,5 +1,5 @@
 module "project_log_export" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   bucket_name = "<existing bucket name>"
   gcp_project = "demo-1000"

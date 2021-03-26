@@ -1,5 +1,5 @@
 module "project_log_export" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-log-export.git"
+  source = "git::git@github.com:tomarv2/terraform-google-log-export.git"
 
   bucket_name = module.storage_bucket.storage_bucket_name
   gcp_project = "demo-1000"
@@ -27,7 +27,7 @@ module "project_log_export" {
 }
 
 module "storage_bucket" {
-  source = "git::git@tomarv2:tomarv2/terraform-google-storage-bucket.git"
+  source = "git::git@github.com:tomarv2/terraform-google-storage-bucket.git"
 
   bucket_name = "test-prj-sink-0011"
   gcp_project = "demo-1000"
