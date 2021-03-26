@@ -27,12 +27,12 @@
 
 :point_right: billing_account level
 
-Plan correctly as there is cost associated with log export.
+**NOTE:** Plan correctly as there is cost associated with log export.
 
 # Versions
 
 - Module tested for Terraform 0.14.
-- Google provider version [3.58.0](https://registry.terraform.io/providers/hashicorp/google/latest)
+- Google provider version [3.60.0](https://registry.terraform.io/providers/hashicorp/google/latest)
 - `main` branch: Provider versions not pinned to keep up with Terraform releases
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-google-project-sink/tags" alt="GitHub tag">
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-google-project-sink" /></a> in your releases)
@@ -244,13 +244,13 @@ Please refer to examples directory [link](examples) for references.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.14 |
-| google | ~> 3.58 |
+| google | ~> 3.60 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | ~> 3.58 |
+| google | ~> 3.60 |
 
 ## Inputs
 
@@ -292,53 +292,53 @@ Service account with the following roles is required:
 
 - On the logsink's project, folder, or organization (to create the logsink) enable:
 
-`roles/logging.configWriter` 
+:point_right: `roles/logging.configWriter` 
   
 - On the destination project (to grant write permissions for logsink service account) enable:
 
-`roles/resourcemanager.projectIamAdmin`
+:point_right: `roles/resourcemanager.projectIamAdmin`
   
 - On the destination project (to enable destination APIs) enable:
 
-`roles/serviceusage.serviceUsageAdmin` 
+:point_right: `roles/serviceusage.serviceUsageAdmin` 
   
 **Pub/Sub roles**
 
 To use a Google Cloud Pub/Sub topic as the destination, on the destination project (to create a pub/sub topic):
 
-`roles/pubsub.admin`
+:point_right: `roles/pubsub.admin`
   
 **Storage role**
 
 To use a Google Cloud Storage bucket as the destination, on the destination project (to create a storage bucket):
 
-`roles/storage.admin`
+:point_right: `roles/storage.admin`
 
 **BigQuery role**
 
 To use a BigQuery dataset as the destination, on the destination project (to create a BigQuery dataset):
 
-`roles/bigquery.dataEditor` 
+:point_right: `roles/bigquery.dataEditor` 
 
 ## Project APIs
 
-Following APIs must be enabled on the project:
+:point_right: Following APIs must be enabled on the project:
 
-Cloud Resource Manager API - `cloudresourcemanager.googleapis.com`
+:point_right: Cloud Resource Manager API - `cloudresourcemanager.googleapis.com`
 
-Cloud Billing API - `cloudbilling.googleapis.com`
+:point_right: Cloud Billing API - `cloudbilling.googleapis.com`
 
-Identity and Access Management API - `iam.googleapis.com`
+:point_right: Identity and Access Management API - `iam.googleapis.com`
 
-Service Usage API - `serviceusage.googleapis.com`
+:point_right: Service Usage API - `serviceusage.googleapis.com`
 
-Stackdriver Logging API - `logging.googleapis.com`
+:point_right: Stackdriver Logging API - `logging.googleapis.com`
 
-Cloud Storage JSON API - `storage-api.googleapis.com`
+:point_right: Cloud Storage JSON API - `storage-api.googleapis.com`
 
-BigQuery API - `bigquery.googleapis.com`
+:point_right: BigQuery API - `bigquery.googleapis.com`
 
-Cloud Pub/Sub API - `pubsub.googleapis.com`
+:point_right: Cloud Pub/Sub API - `pubsub.googleapis.com`
 
 ## Note
 
