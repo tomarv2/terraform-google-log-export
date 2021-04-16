@@ -90,7 +90,10 @@ variable "exclusions" {
   }))
 }
 
-variable "inclusion_filter" {}
+# TODO: move to list format
+variable "inclusion_filter" {
+  default = ""
+}
 
 variable "bigquery_options" {
   default     = null
