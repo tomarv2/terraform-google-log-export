@@ -15,7 +15,7 @@ output "project_sink_unique_writer_identity" {
 
 output "project_sink_writer_identity" {
   description = "Project log sink write identity"
-  value       = module.project_log_export.project_sink_writer_identity
+  value       = module.project_log_export.project_sink_writer_identfity
 }
 
 output "project_sink_project" {
