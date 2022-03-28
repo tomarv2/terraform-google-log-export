@@ -300,16 +300,11 @@ To use a BigQuery dataset as the destination, on the destination project (to cre
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.1 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 4.12.0 |
+No requirements.
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | ~> 4.12.0 |
+No providers.
 
 ## Modules
 
@@ -317,33 +312,13 @@ No modules.
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [google_logging_project_sink.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/logging_project_sink) | resource |
+No resources.
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_bigquery_options"></a> [bigquery\_options](#input\_bigquery\_options) | (Optional) Options that affect sinks exporting data to BigQuery. use\_partitioned\_tables - Whether to use BigQuery's partition tables. | <pre>object({<br>    use_partitioned_tables = bool<br>  })</pre> | `null` | no |
-| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Google storage bucket name | `string` | `null` | no |
-| <a name="input_deploy_project_sink"></a> [deploy\_project\_sink](#input\_deploy\_project\_sink) | Feature flag, true or false | `bool` | `true` | no |
-| <a name="input_exclusions"></a> [exclusions](#input\_exclusions) | Exclusions | <pre>set(object({<br>    name        = string<br>    description = string<br>    filter      = string<br>  }))</pre> | `[]` | no |
-| <a name="input_existing_topic_name"></a> [existing\_topic\_name](#input\_existing\_topic\_name) | Existing PubSub name | `string` | `null` | no |
-| <a name="input_inclusion_filter"></a> [inclusion\_filter](#input\_inclusion\_filter) | Inclusion filter | `string` | `""` | no |
-| <a name="input_prjid"></a> [prjid](#input\_prjid) | Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_sink_name"></a> [sink\_name](#input\_sink\_name) | Google storage bucket name | `string` | `null` | no |
-| <a name="input_teamid"></a> [teamid](#input\_teamid) | Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_topic_name"></a> [topic\_name](#input\_topic\_name) | The Pub/Sub topic name | `string` | `null` | no |
-| <a name="input_unique_writer_identity"></a> [unique\_writer\_identity](#input\_unique\_writer\_identity) | Whether or not to create a unique identity associated with this sink. If false (the default), then the writer\_identity used is serviceAccount:cloud-logs@system.gserviceaccount.com. If true, then a unique service account is created and used for the logging sink. | `bool` | `false` | no |
+No inputs.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_project_sink_destination"></a> [project\_sink\_destination](#output\_project\_sink\_destination) | Project log sink destination |
-| <a name="output_project_sink_name"></a> [project\_sink\_name](#output\_project\_sink\_name) | Project log sink name |
-| <a name="output_project_sink_project"></a> [project\_sink\_project](#output\_project\_sink\_project) | Project log sink project |
-| <a name="output_project_sink_unique_writer_identity"></a> [project\_sink\_unique\_writer\_identity](#output\_project\_sink\_unique\_writer\_identity) | Project log sink write identity |
-| <a name="output_project_sink_writer_identity"></a> [project\_sink\_writer\_identity](#output\_project\_sink\_writer\_identity) | Project log sink write identity |
+No outputs.
 <!-- END_TF_DOCS -->
